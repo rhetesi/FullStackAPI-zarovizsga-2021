@@ -306,7 +306,7 @@ components:
         date:
           type: string
         teams:
-          type: string
+          type: number
         street:
           type: string
         city:
