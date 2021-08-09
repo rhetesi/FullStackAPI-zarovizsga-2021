@@ -13,7 +13,9 @@ mongoose.Promise = global.Promise;
 // Authenctication.
 const swaggerDocument = YAML.load('./src/docs/swager.yaml');
 
-const { host } = config.get('database');
+const {
+    host
+} = config.get('database');
 mongoose
     .connect(`mongodb://${host}`, {
         useNewUrlParser: true,
@@ -31,7 +33,9 @@ mongoose
 
 
 app.use(cors());
-app.use(morgan('combined', { stream: logger.stream }));
+app.use(morgan('combined', {
+    stream: logger.stream
+}));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
@@ -39,7 +43,7 @@ app.use(bodyParser.json());
 app.use('/cars', require('./controllers/car/routes'));
 app.use('/customers', require('./controllers/customer/routes'));
 app.use('/races', (req, res) => res.json([]));
-app.use('/services', (req, res) => res.json([]));
+app.use('/services', require('./controllers/service/routes'));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((err, req, res, next) => {
